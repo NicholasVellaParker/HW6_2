@@ -42,7 +42,7 @@ class Pipe():
         Calculate average velocity in the pipe for volumetric flow self.Q
         :return:the average velocity in m/s
         '''
-        self.vel= #$JES MISSING CODE$  # the average velocity is Q/A (be mindful of units)
+        self.vel= (self.Q/1000)/self.A #$JES MISSING CODE$  # the average velocity is Q/A (be mindful of units)
         return self.vel
 
     def Re(self):
@@ -50,7 +50,7 @@ class Pipe():
         Calculate the reynolds number under current conditions.
         :return:
         '''
-        self.reynolds= #$JES MISSING CODE$ # Re=rho*V*d/mu, be sure to use V() so velocity is updated.
+        self.reynolds= self.fluid.rho*self.V()*self.d/self.fluid.mu #$JES MISSING CODE$ # Re=rho*V*d/mu, be sure to use V() so velocity is updated.
         return self.reynolds
 
     def FrictionFactor(self):
@@ -94,7 +94,7 @@ class Pipe():
         '''
         g = 9.81  # m/s^2
         ff = self.FrictionFactor()
-        hl = #$JES MISSING CODE$ # calculate the head loss in m of water
+        hl = ff*(self.length/self.d)*(self.vel**2/(s*g))#$JES MISSING CODE$ # calculate the head loss in m of water
         return hl
 
     def getFlowHeadLoss(self, s):
