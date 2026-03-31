@@ -94,7 +94,7 @@ class Pipe():
         '''
         g = 9.81  # m/s^2
         ff = self.FrictionFactor()
-        hl = ff*(self.length/self.d)*(self.vel**2/(s*g))#$JES MISSING CODE$ # calculate the head loss in m of water
+        hl = ff*(self.length/self.d)*(self.v()**2/(s*g))#$JES MISSING CODE$ # calculate the head loss in m of water
         return hl
 
     def getFlowHeadLoss(self, s):
