@@ -69,6 +69,9 @@ def main():
     print('Check loop head loss:')
     PN.printLoopHeadLoss()
     print('\nPressure at each node:')
+    print('Pressure Losses:')
+    for p in PN.pipes:
+        print('Head loss in pipe {} is {:0.2f} ft'.format(p.Name(), p.frictionHeadLoss()))
 
 gamma = 62.3  # lb/ft³
 known_pressure_psi = 80.0
