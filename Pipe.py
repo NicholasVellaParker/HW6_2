@@ -13,9 +13,9 @@ class Pipe():
         Defines a generic pipe with orientation from lowest letter to highest, alphabetically.
         :param Start: the start node (string)
         :param End: the end node (string)
-        :param L: the pipe length in m (float)
-        :param D: the pipe diameter in mm (float)
-        :param r: the pipe roughness in m  (float)
+        :param L: the pipe length in ft (float)
+        :param D: the pipe diameter in in (float)
+        :param r: the pipe roughness in ft  (float)
         :param fluid:  a Fluid object (typically water)
         '''
         #region attributes
