@@ -27,7 +27,7 @@ class Pipe():
         self.fluid=fluid #the fluid in the pipe
 
         # other calculated properties
-        self.d=D/1000.0 #diameter in m
+        self.d=D/12.0 #diameter in m
         self.relrough = self.r/self.d #calculate relative roughness for easy use later
         self.A=math.pi/4.0*self.d**2 #calculate pipe cross sectional area for easy use later
         self.Q=10 #working in units of L/s, just an initial guess
@@ -42,7 +42,7 @@ class Pipe():
         Calculate average velocity in the pipe for volumetric flow self.Q
         :return:the average velocity in m/s
         '''
-        self.vel= (self.Q/1000)/self.A #$JES MISSING CODE$  # the average velocity is Q/A (be mindful of units)
+        self.vel= (self.Q)/self.A #$JES MISSING CODE$  # the average velocity is Q/A (be mindful of units)
         return self.vel
 
     def Re(self):
@@ -92,7 +92,7 @@ class Pipe():
         '''
         Use the Darcy-Weisbach equation to find the head loss through a section of pipe.
         '''
-        g = 9.81  # m/s^2
+        g = 32.2  # m/s^2
         ff = self.FrictionFactor()
         hl = ff*(self.length/self.d)*(self.v()**2/(s*g))#$JES MISSING CODE$ # calculate the head loss in m of water
         return hl
