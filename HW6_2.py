@@ -68,6 +68,39 @@ def main():
     print()
     print('Check loop head loss:')
     PN.printLoopHeadLoss()
+    print('\nPressure at each node:')
+
+gamma = 62.3  # lb/ft³
+known_pressure_psi = 80.0
+known_node = 'h'
+
+# Convert psi to feet of head
+nodeHeads = {known_node: known_pressure_psi * 144 / gamma}
+
+# Walk pipes until all nodes are assigned
+for _ in range(len(PN.pipes)):
+    for p in PN.pipes:
+        n1 = p.startNode
+        n2 = p.endNode
+        hl = p.frictionHeadLoss()
+
+        if n1 in nodeHeads and n2 not in nodeHeads:
+            if p.Q >= 0:
+                nodeHeads[n2] = nodeHeads[n1] - hl
+            else:
+                nodeHeads[n2] = nodeHeads[n1] + hl
+
+        elif n2 in nodeHeads and n1 not in nodeHeads:
+            if p.Q >= 0:
+                nodeHeads[n1] = nodeHeads[n2] + hl
+            else:
+                nodeHeads[n1] = nodeHeads[n2] - hl
+
+# Print results
+print(f'  {"Node":<8} {"Head (ft)":>12} {"Pressure (psi)":>16}')
+for name, head in sorted(nodeHeads.items()):
+    psi = head * gamma / 144  #convert back to psi
+    print(f'  {name:<8} {head:>12.2f} {psi:>16.2f}')
     #PN.printPipeHeadLosses()
 # endregion
 
