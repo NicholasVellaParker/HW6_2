@@ -23,34 +23,39 @@ def main():
     '''
     #instantiate a Fluid object to define the working fluid as water
     water= Fluid()#$JES MISSING CODE$  #
-    roughness = 0.00025  # in meters
+    r1 = 0.00085  # in feet
+    r2 = 0.003  #in feet
 
     #instantiate a new PipeNetwork object
     PN= =PipeNetwork #$JES MISSING CODE$  #
     #add Pipe objects to the pipe network (see constructor for Pipe class)
-    PN.pipes.append(Pipe('a','b',250, 300, roughness, water))
-    PN.pipes.append(Pipe('a','c',100, 200, roughness, water))
-    PN.pipes.append(Pipe('b','e',100, 200, roughness, water))
-    PN.pipes.append(Pipe('c','d',125, 200, roughness, water))
-    PN.pipes.append(Pipe('c','f',100, 150, roughness, water))
-    PN.pipes.append(Pipe('d','e',125, 200, roughness, water))
-    PN.pipes.append(Pipe('d','g',100, 150, roughness, water))
-    PN.pipes.append(Pipe('e','h',100, 150, roughness, water))
-    PN.pipes.append(Pipe('f','g',125, 250, roughness, water))
-    PN.pipes.append(Pipe('g','h',125, 250, roughness, water))
+    PN.pipes.append(Pipe('a','h', 1000, 24, r2, water))
+    PN.pipes.append(Pipe('a','b', 1000, 18, r2, water))
+    PN.pipes.append(Pipe('b','c', 500, 18, r2, water))
+    PN.pipes.append(Pipe('c','d', 500, 18, r2, water))
+    PN.pipes.append(Pipe('c','f', 800, 16, r1, water))
+    PN.pipes.append(Pipe('d','g', 800, 16, r1, water))
+    PN.pipes.append(Pipe('b','e', 800, 16, r1, water))
+    PN.pipes.append(Pipe('e','f', 500, 12, r1, water))
+    PN.pipes.append(Pipe('f','g', 500, 12, r1, water))
+    PN.pipes.append(Pipe('g','j', 800, 18, r2, water))
+    PN.pipes.append(Pipe('e','i', 800, 18, r2, water))
+    PN.pipes.append(Pipe('h','i', 1000, 24, r2, water))
+    PN.pipes.append(Pipe('i','j', 1000, 24, r2, water))
     #add Node objects to the pipe network by calling buildNodes method of PN object
     PN.buildNodes()
 
     #update the external flow of certain nodes
-    PN.getNode('a').extFlow=60
-    PN.getNode('d').extFlow=-30
-    PN.getNode('f').extFlow=-15
-    PN.getNode('h').extFlow=-15
+    PN.getNode('h').extFlow= 10
+    PN.getNode('e').extFlow= -3
+    PN.getNode('f').extFlow= -5
+    PN.getNode('d').extFlow= -2
 
     #add Loop objects to the pipe network
-    PN.loops.append(Loop('A',[PN.getPipe('a-b'), PN.getPipe('b-e'),PN.getPipe('d-e'), PN.getPipe('c-d'), PN.getPipe('a-c')]))
-    PN.loops.append(Loop('B',[PN.getPipe('c-d'), PN.getPipe('d-g'),PN.getPipe('f-g'), PN.getPipe('c-f')]))
-    PN.loops.append(Loop('C',[PN.getPipe('d-e'), PN.getPipe('e-h'),PN.getPipe('g-h'), PN.getPipe('d-g')]))
+    PN.loops.append(Loop('A',[PN.getPipe('a-b'), PN.getPipe('b-e'),PN.getPipe('e-i'), PN.getPipe('h-i'), PN.getPipe('a-h')]))
+    PN.loops.append(Loop('B',[PN.getPipe('b-c'), PN.getPipe('c-f'),PN.getPipe('e-f'), PN.getPipe('b-e')]))
+    PN.loops.append(Loop('C',[PN.getPipe('c-d'), PN.getPipe('d-g'),PN.getPipe('f-g'), PN.getPipe('c-f')]))
+    PN.loops.append(Loop('D',[PN.getPipe('e-f'), PN.getPipe('f-g'),PN.getPipe('g-j'), PN.getPipe('i-j')]))
 
     #call the findFlowRates method of the PN (a PipeNetwork object)
     PN.findFlowRates()
