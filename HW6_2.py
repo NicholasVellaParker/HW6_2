@@ -27,7 +27,7 @@ def main():
     r2 = 0.003  #in feet
 
     #instantiate a new PipeNetwork object
-    PN= =PipeNetwork #$JES MISSING CODE$  #
+    PN=PipeNetwork() #$JES MISSING CODE$  #
     #add Pipe objects to the pipe network (see constructor for Pipe class)
     PN.pipes.append(Pipe('a','h', 1000, 24, r2, water))
     PN.pipes.append(Pipe('a','b', 1000, 18, r2, water))
